@@ -12,17 +12,44 @@ public class Wordle {
 
     public void play() {
         Scanner scanner = new Scanner(System.in);
-        boolean isGameOver = false;
-        while(!isGameOver) {
-            System.out.println("Please, make your guess. Secret word is 5 characters long.");
+        int remainingAttempts = attempts;
+
+        while(remainingAttempts > 0) {
+
+            System.out.printf("Attempts remaining: %d\n", remainingAttempts);
+            System.out.print("Enter your guess: ");
             String guess = scanner.nextLine();
-            if (this.secretWord.equalsIgnoreCase(guess)) {
-                System.out.printf("Congratulations, you guessed the secret word: %s.\n", secretWord);
-                isGameOver = true;
+
+            if (guess.length() != secretWord.length()) {
+                System.out.println("Invalid guess. Please enter a word with the same length as the secret word.");
+                continue;
+            }
+
+            int correctChars = 0;
+            int correctPositions = 0;
+
+            for (int i = 0; i < secretWord.length(); i++) {
+                char c = guess.charAt(i);
+                if (c == secretWord.charAt(i)) {
+                    correctPositions++;
+                } else if (secretWord.indexOf(c) >= 0) {
+                    correctChars++;
+                }
+            }
+
+            if (correctPositions == secretWord.length()) {
+                System.out.printf("Congratulations! You guessed the secret word: %s\n", secretWord);
+                break;
             } else {
-                System.out.println("That's not correct. Try again!");
-                attempts--;
+                System.out.printf("Correct characters: %d\n", correctChars);
+                System.out.printf("Correct positions: %d\n", correctPositions);
+                remainingAttempts--;
+            }
+
+            if (remainingAttempts == 0) {
+                System.out.printf("Game Over! You are out of attempts. The secret word was: %s\n", secretWord);
             }
         }
     }
+
 }
