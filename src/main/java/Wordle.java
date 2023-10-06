@@ -25,6 +25,11 @@ public class Wordle {
                 continue;
             }
 
+            if (!isAllLetters(guess)) {
+                System.out.println("Invalid guess! Just letters are allowed.");
+                continue;
+            }
+
             int correctChars = 0;
             int correctPositions = 0;
 
@@ -50,6 +55,17 @@ public class Wordle {
                 System.out.printf("Game Over! You are out of attempts. The secret word was: %s\n", secretWord);
             }
         }
+    }
+
+    public boolean isAllLetters(String input) {
+        for (int i = 0; i < input.length(); i++) {
+            char currentLetter = input.charAt(i);
+            if (!Character.isLetter(currentLetter)) {
+                return false;
+            }
+        }
+
+        return true;
     }
 
 }
