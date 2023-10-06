@@ -9,11 +9,11 @@ public class Wordle {
     private List<String> possibleWords;
     private WordExtractor wordExtractor = new WordExtractor();
 
-    public Wordle(int attempts) {
+    public Wordle() {
         Random random = new Random();
         this.possibleWords = wordExtractor.getWordsList();
         this.secretWord = possibleWords.get(random.nextInt(possibleWords.size()));
-        this.attempts = attempts;
+        this.attempts = 6;
     }
 
     public void play() {
