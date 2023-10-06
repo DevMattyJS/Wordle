@@ -1,12 +1,18 @@
+import java.util.List;
+import java.util.Random;
 import java.util.Scanner;
 
 public class Wordle {
 
     private String secretWord;
     private int attempts;
+    private List<String> possibleWords;
+    private WordExtractor wordExtractor = new WordExtractor();
 
-    public Wordle(String secretWord, int attempts) {
-        this.secretWord = secretWord;
+    public Wordle(int attempts) {
+        Random random = new Random();
+        this.possibleWords = wordExtractor.getWordsList();
+        this.secretWord = possibleWords.get(random.nextInt(possibleWords.size()));
         this.attempts = attempts;
     }
 
@@ -15,7 +21,7 @@ public class Wordle {
         int remainingAttempts = attempts;
 
         while(remainingAttempts > 0) {
-
+//            System.out.printf("Secret word: %s\n", secretWord);
             System.out.printf("Attempts remaining: %d\n", remainingAttempts);
             System.out.print("Enter your guess: ");
             String guess = scanner.nextLine();
